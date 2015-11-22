@@ -1,0 +1,9 @@
+{% if foo_list %}
+    <ul>
+    {% for foo in foo_list %}
+        <li><a href="/foos/{{ foo.slug }}/">{{ foo.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No foos available.</p>
+{% endif %}
