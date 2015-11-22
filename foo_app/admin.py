@@ -5,4 +5,4 @@ from .models import Foo
 
 @admin.register(Foo)
 class FooAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',), }
+    exclude = ('slug',)
