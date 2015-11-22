@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.views import generic
 from .models import Foo
-import json
+
+from json import dumps
 
 
 class IndexView(generic.ListView):
@@ -14,4 +15,4 @@ class DetailView(generic.DetailView):
 
 def APIView(reqest):
     foos_as_jsons = [foo.as_json() for foo in Foo.objects.all()]
-    return HttpResponse(json.dumps(foos_as_jsons), content_type="application/json")
+    return HttpResponse(dumps(foos_as_jsons), content_type="application/json")
