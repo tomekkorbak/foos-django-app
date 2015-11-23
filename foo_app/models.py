@@ -12,6 +12,7 @@ class Foo(models.Model):
 
     def as_json(self):
         return dict(
+            id=self.id,
             name=self.name,
             slug=self.slug,
             text=self.text,
