@@ -66,3 +66,24 @@ class APIViewTest(TestCase):
             self.assertEqual(len(loaded_json), len(foos))
         except ValueError:
             self.fail('No JSON object could be decoded')
+
+class ModelFooTest(TestCase):
+
+    def test_as_json_contains_all_fields(self):
+        fields = [field.name for field in list(Foo._meta.get_fields())]
+        example_foo = Foo.objects.create(name='Example foo',
+                                         text='Lorem ipsum',)
+        self.assertEqual(
+            set(example_foo.as_json().keys()),
+            set(fields)
+        )
+
+    def test_several_foos_sharing_same_name(self):
+        foos = [Foo.objects.create(name='Example foo',
+                                   text='Lorem ipsum',)
+                for x in xrange(10)]
+        self.assertNotEqual(foos[0].slug, foos[4].slug)
+        self.assertEqual(
+            len(set([foo.slug for foo in foos])),
+            len(foos),
+        )
